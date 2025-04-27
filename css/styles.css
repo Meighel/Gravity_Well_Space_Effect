@@ -1,0 +1,16 @@
+body {
+    background-image: url('https://media.ceros.com/l3harris-sas/images/2021/07/13/e5fa0c60863cd9fa079296ce02e4d4c1/speed-lights-space-7cksx3j.gif') !important;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #ffffff;
+  }
+  
+  h1, h2 {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  }
+  
+  ul li {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
