@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+if (isset($_SESSION['user_id']) && isset($_SESSION['user_role'])) {
+    switch ($_SESSION['user_role']) {
+        case 'Admin':
+            header("Location: php/admin_dashboard.php");
+            exit();
+        case 'Staff':
+            header("Location: php/staff_dashboard.php");
+            exit();
+        case 'Client':
+        default:
+            header("Location: php/client_dashboard.php");
+            exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +30,10 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">Gravity Well Space FX</a>
+      <a class="navbar-brand fw-bold" href="index.php">Gravity Well Space FX</a>
       <div class="d-flex">
         <a href="product.html" class="btn text-white me-2">About the Product</a>
-        <a href="login.html" class="btn btn-outline-light me-2">Login</a>
+        <a href="php/login.php" class="btn btn-outline-light me-2">Login</a>
         <a href="register.html" class="btn btn-primary">Register</a>
       </div>
     </div>

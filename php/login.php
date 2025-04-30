@@ -1,5 +1,19 @@
 <?php
 session_start();
+if (isset($_SESSION['user_id'])) {
+    // Redirect based on role if already logged in
+    if ($_SESSION['user_role'] === 'Admin') {
+        header("Location: admin_dashboard.php");
+        exit();
+    } elseif ($_SESSION['user_role'] === 'Staff') {
+        header("Location: staff_dashboard.php");
+        exit();
+    } else {
+        header("Location: client_dashboard.php");
+        exit();
+    }
+}
+
 require 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,15 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $action = "User logged in";
             $user_id = $user['id'];
-            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-                $ip_address = $_SERVER['HTTP_CLIENT_IP'];
-            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            } else {
-                $ip_address = $_SERVER['REMOTE_ADDR'];
-            }
 
-            $ip_address = strtok($ip_address, ','); 
+            $ip_address = $_SERVER['HTTP_CLIENT_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+            $ip_address = strtok($ip_address, ',');
 
             $sql_log = "INSERT INTO audit_log (user_id, action, ip_address, timestamp) VALUES (?, ?, ?, NOW())";
             $stmt_log = $conn->prepare($sql_log);
@@ -46,10 +54,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             exit();
         } else {
-            echo "Invalid password.";
+            $error = "Invalid password.";
         }
     } else {
-        echo "No user found with that email.";
+        $error = "No user found with that email.";
     }
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Gravity Well Plugin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.php">Gravity Well Space FX</a>
+  </div>
+</nav>
+
+<div class="login-container">
+  <h2>Login</h2>
+
+  <?php if (isset($error)): ?>
+    <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+  <?php endif; ?>
+
+  <form action="login.php" method="POST">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+    </div>
+    <div class="form-group mt-3">
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+    <div class="form-group mt-2">
+      <p>Don't have an account? <a href="../register.html">Register here</a></p>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

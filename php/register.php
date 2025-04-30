@@ -15,9 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-    $token = bin2hex(random_bytes(50));
+    $token = bin2hex(random_bytes(length: 50));
 
-    $stmt = $conn->prepare("INSERT INTO users (firstname, middlename, lastname, birthday, email, mobile, password, verification_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare(query: "INSERT INTO users (firstname, middlename, lastname, birthday, email, mobile, password, verification_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssssss", $firstname, $middlename, $lastname, $birthday, $email, $mobile, $password, $token);
 
     // Still not working
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Hello $firstname,\n\nPlease click the link below to verify your email:\n$verification_link";
 
         if (sendVerificationEmail($email, $subject, $message)) {
-            header("Location: login.html?registered=1");
+            header("Location: login.php?registered=1");
             exit();
         } else {
             echo "Registration successful, but failed to send verification email.";
