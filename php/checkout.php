@@ -1,8 +1,7 @@
 <?php
 session_start();
-require 'db.php'; // adjust if needed
+require 'db.php'; 
 
-// Check login
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.html");
     exit;
@@ -10,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 $user_name = $_SESSION['user_name'];
-$amount = 99.99; // product price
+$amount = 99.99; 
 ?>
 
 <!DOCTYPE html>

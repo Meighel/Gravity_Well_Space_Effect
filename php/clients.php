@@ -2,13 +2,11 @@
 session_start();
 require 'db.php';
 
-// Check if user is a staff member
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'Staff') {
     header("Location: ../login.html");
     exit;
 }
 
-// Fetch all clients from the database
 $stmt = $conn->prepare("SELECT id, firstname, lastname, email, created_at FROM users WHERE role = 'Client'");
 $stmt->execute();
 $result = $stmt->get_result();

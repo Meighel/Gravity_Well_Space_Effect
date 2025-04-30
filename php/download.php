@@ -1,30 +1,26 @@
 <?php
 session_start();
-require 'db.php'; // adjust if needed
+require 'db.php'; 
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit;
 }
 
-// Check if the transaction ID is passed as a GET parameter
 if (isset($_GET['transaction_id'])) {
     $transaction_id = $_GET['transaction_id'];
     $user_id = $_SESSION['user_id'];
 
-    // Validate the transaction exists for the logged-in user
     $stmt = $conn->prepare("SELECT * FROM transactions WHERE id = ? AND user_id = ?");
     $stmt->bind_param("ii", $transaction_id, $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
     
     if ($result->num_rows > 0) {
-        // Transaction exists
         $transaction = $result->fetch_assoc();
         $status = $transaction['status'];
         
         if ($status == 'Paid') {
-            // Allow the user to download the plugin
             $download_message = "
                 <div class='container mt-5 text-center'>
                     <h1 class='mb-4'>Thank you for your purchase!</h1>
@@ -33,7 +29,6 @@ if (isset($_GET['transaction_id'])) {
                 </div>
             ";
         } else {
-            // Transaction not paid, show an error
             $download_message = "
                 <div class='container mt-5'>
                     <h1 class='text-center text-danger'>Error</h1>
@@ -42,7 +37,6 @@ if (isset($_GET['transaction_id'])) {
             ";
         }
     } else {
-        // Invalid transaction ID
         $download_message = "
             <div class='container mt-5'>
                 <h1 class='text-center text-danger'>Error</h1>
@@ -51,7 +45,6 @@ if (isset($_GET['transaction_id'])) {
         ";
     }
 } else {
-    // No transaction ID passed
     $download_message = "
         <div class='container mt-5'>
             <h1 class='text-center text-danger'>Error</h1>

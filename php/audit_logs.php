@@ -7,7 +7,6 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'Admin' && $_S
     exit;
 }
 
-// Fetch the audit logs (login and purchase events)
 $sql = "SELECT a.id, u.firstname, u.lastname, a.action, a.timestamp, a.ip_address
         FROM audit_log a
         JOIN users u ON a.user_id = u.id

@@ -7,7 +7,6 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'Client') {
     exit;
 }
 
-// Check if the client has a successful transaction
 $user_id = $_SESSION['user_id'];
 $sql = "SELECT * FROM transactions WHERE user_id = ? AND status = 'Paid' LIMIT 1";
 $stmt = $conn->prepare($sql);
@@ -17,7 +16,6 @@ $result = $stmt->get_result();
 
 $has_paid = $result->num_rows > 0;
 
-// Fake license key if purchased
 $license_key = "GWSP-" . strtoupper(substr(md5($user_id), 0, 10));
 
 $stmt->close();

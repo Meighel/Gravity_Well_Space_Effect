@@ -2,13 +2,11 @@
 session_start();
 require 'db.php';
 
-// Redirect to login page if not authenticated
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'Staff' && $_SESSION['user_role'] !== 'Admin')) {
     header("Location: login.html");
     exit;
 }
 
-// Fetch transactions from the database
 $sql = "SELECT t.id, u.firstname, u.lastname, t.amount, t.status, t.created_at 
         FROM transactions t
         JOIN users u ON t.user_id = u.id

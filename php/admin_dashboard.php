@@ -7,7 +7,6 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'Admin') {
     exit;
 }
 
-// Fetch Transactions
 $transactions = [];
 $trans_stmt = $conn->prepare("
     SELECT t.id, u.firstname, u.lastname, t.amount, t.status, t.created_at 
@@ -21,7 +20,6 @@ while ($row = $trans_result->fetch_assoc()) {
     $transactions[] = $row;
 }
 
-// Fetch Audit Logs
 $audit_logs = [];
 $audit_stmt = $conn->prepare("
     SELECT a.id, u.firstname, u.lastname, a.action, a.timestamp 
@@ -35,7 +33,6 @@ while ($row = $audit_result->fetch_assoc()) {
     $audit_logs[] = $row;
 }
 
-// Fetch Report Summary
 $report = [
     'total_transactions' => 0,
     'total_amount' => 0.00,
