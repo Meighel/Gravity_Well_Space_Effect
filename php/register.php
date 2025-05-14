@@ -30,7 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: login.php?registered=1");
             exit();
         } else {
-            echo "Registration successful, but failed to send verification email.";
+            header("Location: ../email_failed.html");
+            exit();
         }
     } else {
         echo "Error: " . $conn->error;
