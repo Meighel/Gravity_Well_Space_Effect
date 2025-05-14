@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="index.php">Gravity Well Space FX</a>
+    <a class="navbar-brand fw-bold" href="../index.php">Gravity Well Space FX</a>
   </div>
 </nav>
 

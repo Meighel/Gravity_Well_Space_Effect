@@ -45,7 +45,7 @@ $result = $stmt->get_result();
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="clienttable">
       <?php if ($result->num_rows > 0): ?>
         <?php while ($client = $result->fetch_assoc()): ?>
           <tr>
@@ -69,11 +69,14 @@ $result = $stmt->get_result();
   </table>
 </div>
 
+<script src="../js/pagination.js"></script>
+<script>
+  paginate('#clienttable', 10);
+</script>
 </body>
 </html>
 
 <?php
-// Close the statement and connection
 $stmt->close();
 $conn->close();
 ?>

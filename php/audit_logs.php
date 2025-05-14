@@ -45,7 +45,7 @@ $result = $conn->query($sql);
         <th>Timestamp</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="audittable">
       <?php
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -66,5 +66,9 @@ $result = $conn->query($sql);
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/pagination.js"></script>
+<script>
+  paginate('#audittable', 15);
+</script>
 </body>
 </html>

@@ -75,6 +75,9 @@ while ($row = $summary_result->fetch_assoc()) {
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand fw-bold" href="admin_dashboard.php">Admin Dashboard</a>
+    <a href="users.php" class="btn text-white me-2">Users</a>
+    <a href="transactions.php" class="btn text-white me-2">Transactions</a>
+    <a href="audit_logs.php" class="btn text-white me-2">Log</a>
     <div class="ms-auto">
       <span class="text-light me-3">Welcome, <?php echo $_SESSION['user_name']; ?></span>
       <a href="logout.php" class="btn btn-danger">Logout</a>
@@ -133,7 +136,7 @@ while ($row = $summary_result->fetch_assoc()) {
             <th>Created At</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="transactable">
           <?php foreach ($transactions as $txn): ?>
           <tr>
             <td><?php echo htmlspecialchars($txn['id']); ?></td>
@@ -167,7 +170,7 @@ while ($row = $summary_result->fetch_assoc()) {
             <th>Timestamp</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="audittable">
           <?php foreach ($audit_logs as $log): ?>
           <tr>
             <td><?php echo htmlspecialchars($log['id']); ?></td>
@@ -187,5 +190,11 @@ while ($row = $summary_result->fetch_assoc()) {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/pagination.js"></script>
+<script>
+  paginate('#transactable', 10);
+  paginate('#audittable', 10);
+</script>
+
 </body>
 </html>

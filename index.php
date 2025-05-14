@@ -45,7 +45,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_role'])) {
       <p class="lead">Imitate the far and vacuum sound of deep space — in your own audio projects.</p>
       <img src="img/example-plugin.jpeg" class="img-fluid my-4 rounded shadow" alt="Gravity Well Plugin Banner">
       <br>
-      <a href="download.html" class="btn btn-primary btn-lg">Get the Plugin</a>
+      <a href="php/login.php" class="btn btn-primary btn-lg">Get the Plugin</a>
     </div>
 
     <hr class="my-5 border-light">
@@ -63,8 +63,8 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_role'])) {
     <section id="buy" class="mt-5 text-center">
       <h2 class="text-success">Buy Now</h2>
       <p class="mb-4">Download the VST/AU version for your platform.</p>
-      <a href="download.html" class="btn btn-outline-light btn-lg me-2">Buy for Windows</a>
-      <a href="dashboard.html" class="btn btn-outline-light btn-lg">Buy for Mac</a>
+      <a href="php/login.php" class="btn btn-outline-light btn-lg me-2">Buy for Windows</a>
+      <a href="php/login.php" class="btn btn-outline-light btn-lg">Buy for Mac</a>
     </section>
   </div>
 

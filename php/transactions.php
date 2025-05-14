@@ -26,7 +26,6 @@ $result = $conn->query($sql);
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand fw-bold" href="staff_dashboard.php">Dashboard</a>
-    <a href="clients.php" class="btn text-white me-2">Client</a>
     <a href="transactions.php" class="btn text-white me-2">Transactions</a>
     <a href="audit_logs.php" class="btn text-white me-2">Log</a>
     <div class="ms-auto">
@@ -48,7 +47,7 @@ $result = $conn->query($sql);
         <th>Date</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="transactable">
       <?php
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -69,5 +68,9 @@ $result = $conn->query($sql);
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/pagination.js"></script>
+<script>
+  paginate('#transactable', 10);
+</script>
 </body>
 </html>
